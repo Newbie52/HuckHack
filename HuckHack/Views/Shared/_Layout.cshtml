@@ -1,0 +1,176 @@
+﻿@using HuckHack.Domain.Enums
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-signin-client_id" content="66891961254-dpiq0uno6ihluh2bv55vkhquftp5tsa2.apps.googleusercontent.com">
+    <title>@ViewData["Title"] - HuckHack</title>
+    <script src="https://apis.google.com/js/platform.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/mdb.min.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+
+    <script type="text/javascript" src="~/js/jquery-3.4.1.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/19.1.5/css/dx.common.css">
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/19.1.5/css/dx.light.css">
+
+    <style type="text/css">
+        .page-footer {
+            background-color: #1C2331
+        }
+
+        body {
+            font-family: 'Roboto';
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-dark indigo navbar-expand-lg navbar-light fixed-top scrolling-navbar" style="background-color: #e3f2fd;">
+        <a asp-route-id="" asp-controller="Home" asp-action="Index"  class="navbar-brand">HuckHack</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-route-id="" asp-controller="Events" asp-action="Index">Хакатоны</a>
+                </li>
+                @*
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="HackerCards" asp-action="Index">Hackers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="TeamCards" asp-action="Index">Teams</a>
+                    </li>*@
+                
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i> Профиль
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                            <a class="dropdown-item" href="/Profile">Личный кабинет</a>
+                            <a class="dropdown-item" href="#" onclick="logout()">Выйти</a>
+                        </div>
+                    </li>
+
+                     @if (User.IsInRole(UserRole.Admin.ToString()))
+                     {
+                         <li class="nav-item"><a class="nav-link" href="/Admin">Настройки</a></li>
+                     }
+                    
+                    @*<li class="nav-item"><a class="nav-link" href="/Profile">@User.Identity.Name</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>*@
+                }
+                else
+                {
+                    <li class="nav-item"><div class="g-signin2" data-onsuccess="onSignIn"></div></li>
+                }
+            </ul>
+        </div>
+    </nav>
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content mt-5 mb-5 pt-2" style="min-height: 31.3em;">
+        @RenderBody()
+    </div>
+
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+        <hr class="my-4">
+
+        <div class="pb-4">
+            <a href="#" target="_blank">
+                <i class="fab fa-facebook-f mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-twitter mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-youtube mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-google-plus-g mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-dribbble mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-pinterest mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-github mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-codepen mr-3"></i>
+            </a>
+        </div>
+        <div class="footer-copyright py-3">
+            © 2019 Copyright:
+            <a href="#" target="_blank"> HuckHack </a>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        var token = "";
+        var auth2;
+        $(() => {
+            $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+
+            $(".tooltip-container").tooltip();
+            $("select").materialSelect();
+
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '66891961254-dpiq0uno6ihluh2bv55vkhquftp5tsa2.apps.googleusercontent.com'
+                });
+            });
+        })
+        function onSignIn(googleUser) {
+            var id_token = googleUser.getAuthResponse().id_token;
+            $.get('/User/SignIn?token='+ id_token).done(r => location.reload());
+            var profile = googleUser.getBasicProfile();
+            token = id_token;
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+        function logout() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+            $.get('/User/SignOut').done(r => location.reload());
+        }
+    </script>
+
+    <script type="text/javascript" src="~/js/popper.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/mdb.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/19.1.5/js/dx.all.js"></script>
+    <script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+</body>
+
+
+</html>

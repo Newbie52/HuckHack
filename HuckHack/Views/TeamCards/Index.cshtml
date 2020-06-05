@@ -1,0 +1,45 @@
+﻿@using HuckHack.Domain.Entities
+@model IEnumerable<HuckHack.Domain.Entities.TeamCard>
+
+<div class="mt-lg-5">
+    <div class="column">
+        @foreach (var teamCard in Model)
+        {
+            <div class="card mt-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 d-flex mb-2 align-items-center">
+                            <div class="avatar w-50 white d-flex justify-content-center align-items-center">
+                                <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg" class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <p class="col-2 font-weight-bold lead"><strong><a href="Teams?id=@teamCard.TeamId">@teamCard.Name</a></strong></p>
+                                @*<a class="col-2 btn btn-default btn-rounded btn-sm" href="Teams?id=@teamCard.TeamId">View</a>*@
+                            </div>
+
+                            <p class="text-muted font-weight-light">
+                                @teamCard.Description
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<partial name="ModalsPartial" />
+
+<script type="text/javascript">
+    $("#hackathonEvent").change(
+        function () {
+            location.href = "/TeamCards?eventId=" + this.value;
+        }
+    );
+
+    $(function () {
+    });
+</script>

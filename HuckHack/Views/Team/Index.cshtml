@@ -1,0 +1,167 @@
+﻿@using HuckHack.Domain.Entities
+@model Team
+
+<partial name="Modals/InviteRequestModal" />
+
+<div class="container-fluid">
+    <section class="section team-section">
+        <div class="row text-center">
+            <div class="col-md-8 mb-4">
+                <div class="card card-cascade cascading-admin-card user-card">
+                    <form method="post" class="" asp-action="Index" asp-controller="TeamCards">
+                        @*@if (Model.Owner)
+                        {
+                            <div class="m-3 text-left">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="btn btn-sm btn-rounded btn-outline-deep-orange" id="unlock" onclick="unlock()">Edit</div>
+                                        <div class="btn btn-sm btn-rounded btn-outline-deep-purple d-none" id="lock" onclick="lock()">Stop edit</div>
+                                        <input type="submit" class="btn btn-sm btn-rounded btn-outline-green d-none" id="save" value="Save">
+                                    </div>
+                                </div>
+                            </div>
+                        }*@
+                        <div class="card-body card-body-cascade">
+                            <div class="row">
+
+                                <div class="col-lg-3">
+
+                                    <div class="md-form form-sm mb-0">
+                                        <input type="text" name="Name" id="Name" value="@Model.Name" class="form-control" readonly>
+                                        <label for="Name">Имя</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-3">
+
+                                    <div class="md-form form-sm mb-0">
+                                        <input type="text" name="MembersCount" id="MembersCount" value="@Model.MembersCount" class="form-control" readonly>
+                                        <label for="MembersCount">Количество участников</label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            @*<div class="row">
+                                <div class="col-12">
+                                    <select class="md-form mdb-select form-sm mb-0" name="Specialty" disabled>
+                                        @foreach (string specialty in Enum.GetNames(typeof(Specialty)))
+                                        {
+                                            @if (specialty == Model.Specialty.ToString())
+                                            {
+                                                <option value="@specialty" selected>@specialty</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@specialty">@specialty</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>*@
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="md-form form-sm mb-0">
+                                        <input type="text" name="Requirements" id="Requirements" value="@Model.Requirements" class="form-control" readonly>
+                                        <label for="Requirements">Требования</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="md-form form-sm mb-0">
+                                        <textarea style="resize: none" name="Description" id="Description" class="md-textarea form-control" rows="3" readonly>@Model.ShortDescription</textarea>
+                                        <label for="Description">Описание</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="row">
+                                <div class="chips chips-placeholder col-12"></div>
+                            </div>*@
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card profile-card">
+                    @*@if (Model.Owner)
+                    {
+                        <div class="avatar m-3">
+                            <form id="PictureForm" method="post" asp-controller="Profile" asp-action="SetPicture" enctype="multipart/form-data">
+                                <img src="data:image/gif;base64, @Model.Picture" class="rounded-circle" alt="Upload your avatar" onclick="$('#imageUpload').click()">
+                                <input class="d-none" id="imageUpload" type="file"
+                                       name="imgFile" placeholder="Photo" required="" capture onchange="$('#PictureForm').submit()">
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="avatar m-3">
+                            <img src="data:image/gif;base64, @Model.Picture" class="rounded-circle" alt="No avatar:(">
+                        </div>
+                    }*@
+
+                    <div class="card-body pt-0 mt-0">
+
+                        <h3 class="mb-3 font-weight-bold"><strong>@Model.Name</strong></h3>
+                        @*<h6 class="font-weight-bold cyan-text mb-4">@Model.Specialty</h6>*@
+
+                        <p class="mt-4 text-muted">
+                        </p>
+
+                        @*@if (!Model.Owner)
+                        {
+                            <a data-toggle="modal" data-to="@Model.Id" href="#InviteRequestModal" class="btn btn-info btn-rounded waves-effect waves-light"> Message</a>
+                        }*@
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript">
+    function unlock() {
+        $("input, textarea").removeAttr("readonly");
+        $("select").removeAttr("disabled");
+        $("#lock").removeClass("d-none");
+        $("#save").removeClass("d-none");
+        $("#unlock").addClass("d-none");
+        $('.mdb-select').materialSelect({
+            destroy: true
+        });
+        $(".mdb-select").materialSelect();
+    }
+
+    function lock() {
+        $("input, textarea").attr("readonly", "readonly");
+        $("select").attr("disabled", "disabled");
+        $("#lock").addClass("d-none");
+        $("#save").addClass("d-none");
+        $("#unlock").removeClass("d-none");
+        $('.mdb-select').materialSelect({
+            destroy: true
+        });
+        $(".mdb-select").materialSelect();
+    }
+
+    $(() => {
+        $('.chips-placeholder').materialChip({
+            placeholder: 'Enter a tag',
+            secondaryPlaceholder: '+Tag',
+        });
+
+        $("#Name").trigger("change");
+        $("#MembersCount").trigger("change");
+        $("#Requirements").trigger("change");
+        $("#Description").trigger("change");
+    });
+</script>

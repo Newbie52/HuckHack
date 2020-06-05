@@ -1,0 +1,352 @@
+﻿@using HuckHack.Domain.Entities
+@using HuckHack.Extensions
+@model ProfileViewModel
+
+<partial name="Modals/InviteRequestModal" />
+<partial name="Modals/CreateTeamModalPartial" />
+
+<div class="container-fluid">
+    <section class="section team-section">
+        <div class="row text-center">
+            <div class="col-md-8 mb-4">
+                <div class="card card-cascade cascading-admin-card user-card">
+                    <form method="post" class="" asp-action="Index" asp-controller="Profile">
+                        @if (Model.Owner)
+                        {
+                            <div class="m-3 text-left">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="btn btn-sm btn-rounded btn-outline-deep-orange" id="unlock" onclick="unlock()">Редактировать</div>
+                                        <div class="btn btn-sm btn-rounded btn-outline-deep-purple d-none" id="lock" onclick="lock()">Закончить редактирование</div>
+                                        <input type="submit" class="btn btn-sm btn-rounded btn-outline-green d-none" id="save" value="Сохранить">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="card-body card-body-cascade">
+                            <div class="row">
+
+                                <div class="col-lg-3">
+
+                                    <div class="md-form form-sm mb-0">
+                                        <input type="text" name="FirstName" id="FirstName" value="@Model.FirstName" class="form-control" readonly>
+                                        <label for="FirstName">Имя</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-3">
+
+                                    <div class="md-form form-sm mb-0">
+                                        <input type="text" name="LastName" id="LastName" value="@Model.LastName" class="form-control" readonly>
+                                        <label for="LastName">Фамилия</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-3">
+
+                                    <div class="md-form form-sm mb-0">
+                                        <input type="text" name="City" id="City" value="@Model.City" class="form-control" readonly>
+                                        <label for="City">City</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="md-form form-sm mb-0">
+                                        <input type="number" min="14" max="99" name="Age" id="Age" value="@Model.Age" class="form-control" readonly>
+                                        <label for="Age">Возраст</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="md-form mdb-select form-sm mb-0" name="Specialty" disabled>
+                                        @foreach (string specialty in Enum.GetNames(typeof(Specialty)))
+                                        {
+                                            @if (specialty == Model.Specialty.ToString())
+                                            {
+                                                <option value="@specialty" selected>@specialty</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@specialty">@specialty</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="md-form form-sm mb-0">
+                                        <textarea style="resize: none" name="PortfolioLinks" id="PortfolioLinks" class="md-textarea form-control" rows="2" readonly>@Model.PortfolioLinks</textarea>
+                                        <label for="PortfolioLinks">Ссылки на портфолио</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <div class="md-form form-sm mb-0">
+                                        <textarea style="resize: none" name="SoftSkills" id="SoftSkills" class="md-textarea form-control" rows="3" readonly>@Model.SoftSkills</textarea>
+                                        <label for="SoftSkills">Гибкие навыки</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="md-form form-sm mb-0">
+                                        <textarea style="resize: none" name="HardSkills" id="HardSkills" class="md-textarea form-control" rows="3" readonly>@Model.HardSkills</textarea>
+                                        <label for="HardSkills">Профессиональные навыки</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="md-form form-sm mb-0">
+                                        <textarea style="resize: none" name="HackathonsExperience" id="HackathonsExperience" class="md-textarea form-control" rows="3" readonly>@Model.HackathonsExperience</textarea>
+                                        <label for="HackathonsExperience">Опыт хакатонов</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="chips chips-placeholder col-12"></div>
+                            </div>
+                            @if (Model.Owner)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="text" name="VK" id="VK" value="@Model.VK" class="form-control" readonly>
+                                            <label for="VK">VK</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="text" name="Telegram" id="Telegram" value="@Model.TG" class="form-control" readonly>
+                                            <label for="Telegram">Telegram</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="text" name="Github" id="Github" value="@Model.Github" class="form-control" readonly>
+                                            <label for="Github">Github</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="text" name="Facebook" id="Facebook" value="@Model.Facebook" class="form-control" readonly>
+                                            <label for="Facebook">Facebook</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </form>
+                </div>
+
+                @if (Model.Owner)
+                {
+                    @*<div class="jumbotron text-center blue-grey lighten-5 mt-4">
+
+                            <h2 style="color: gray;" class="card-title h2 font-weight-light">Мои команды</h2>
+                            <hr class="my-2 pb-2">
+
+                            <button type="button" id="createTeamButton" data-toggle="modal" data-target="#createTeamModal"
+                                    class="btn btn-primary btn-sm col-3 m-2">
+                                Создать <i class="fa fa-plus ml-1"></i>
+                            </button>
+                        </div>*@
+
+                    <div class="card card-cascade cascading-admin-card user-card mt-4 text-center mb-2">
+                        <div class="card-header py-3">
+                            <h3 style="color: gray;">Мои команды</h3>
+                        </div>
+
+                        @*<button type="button" id="createTeamButton" data-toggle="modal" data-target="#createTeamModal"
+                                class="btn btn-primary btn-sm m-3 align-self-center">
+                            Создать <i class="fa fa-plus ml-1"></i>
+                        </button>*@
+                        
+                        @*<h2 style="color: gray;" class="card-title h2 font-weight-light mt-3">Мои команды</h2>
+                        <hr class="my-2 pb-2">
+
+                        <button type="button" id="createTeamButton" data-toggle="modal" data-target="#createTeamModal"
+                                class="btn btn-primary btn-sm col-3 m-2">
+                            Создать <i class="fa fa-plus ml-1"></i>
+                        </button>*@
+                    </div>
+
+                    @foreach (var team in (List<Team>)ViewBag.Teams)
+                    {
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-3 d-flex mb-2 align-items-center">
+                                        <div class="avatar white d-flex justify-content-center align-items-center">
+                                            <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg" class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 text-left">
+                                        <div class="row">
+                                            <p class="col-12 font-weight-bold lead">
+                                                <span class="badge badge-pill light-blue"><i class="fas fa-users" aria-hidden="true"></i></span>
+                                                @*<strong><a href="Teams?id=@team.Id">@team.Name</a></strong>*@
+                                                <strong><a asp-controller="Teams" asp-action="Application" asp-route-id="@team.Id">@team.Name</a></strong>
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <p class="col-12 font-weight-light lead">
+                                                <span class="badge badge-pill light-blue"><i class="fas fa-laptop-code" aria-hidden="true"></i></span>
+                                                @*<strong><a href="Events/@team.Id">@team.EventName</a></strong>*@
+                                                <strong><a asp-controller="Events" asp-action="Index" asp-route-id="@team.EventId">@team.EventName</a></strong>
+                                            </p>
+                                        </div>
+
+                                        <p class="text-muted font-weight-light card-text">
+                                            @team.ShortDescription
+                                        </p>
+
+                                        <hr class="my-1 pb-2">
+                                        <div class="row">
+                                            <span class="col-2 ml-3 badge badge-pill badge-light">Вы @(team.UserId == User.GetId() ? "капитан" : "участник")</span>
+                                            <span class="col-2 ml-3 badge badge-pill badge-success">Состав: @(team.UserIds.Count)</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card profile-card">
+                    @if (Model.Owner)
+                    {
+                        <div class="avatar m-3">
+                            <form id="PictureForm" method="post" asp-controller="Profile" asp-action="SetPicture" enctype="multipart/form-data">
+                                <img src="@(!string.IsNullOrEmpty(Model.Picture) ? "data:image/gif;base64, " + Model.Picture :
+                                              "https://www.expert-comptable-sogar.fr/files/img/article.jpg")" 
+                                     class="rounded-circle img-fluid z-depth-1" alt="Upload your avatar" onclick="$('#imageUpload').click()">
+                                <input class="d-none" id="imageUpload" type="file"
+                                       name="imgFile" placeholder="Photo" required="" capture onchange="$('#PictureForm').submit()">
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="avatar m-3">
+                            <img src="@(!string.IsNullOrEmpty(Model.Picture) ? "data:image/gif;base64, " + Model.Picture :
+                                          "https://www.expert-comptable-sogar.fr/files/img/article.jpg")" class="rounded-circle" alt="No avatar:(">
+                        </div>
+                    }
+
+
+                    <div class="card-body pt-0 mt-0">
+
+                        <h3 class="mb-3 font-weight-bold"><strong>@Model.FirstName @Model.LastName</strong></h3>
+                        <h6 class="font-weight-bold cyan-text mb-4">@Model.Specialty</h6>
+
+                        <p class="mt-4 text-muted">
+                        </p>
+
+                        @if (!Model.Owner)
+                        {
+                            <a data-toggle="modal" data-to="@Model.Id" href="#InviteRequestModal" class="btn btn-info btn-rounded waves-effect waves-light @(!User.Identity.IsAuthenticated?"disabled":"")"> Отправить приглашение</a>
+                            <div class="row text-center">
+                                @if (!string.IsNullOrEmpty(Model.VK))
+                                {
+                                    <a href='@Model.VK'><i class="fab fa-vk fa-2x"></i></a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.TG))
+                                {
+                                    <a href="@Model.TG"><i class="fab fa-telegram fa-2x"></i></a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Github))
+                                {
+                                    <a href='@Model.Github'><i class="fab fa-github-square fa-2x"></i></a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Facebook))
+                                {
+                                    <a href='@Model.Facebook'><i class="fab fa-facebook-square fa-2x"></i></a>
+                                }
+
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<partial name="Modals/InviteRequestModal" />
+
+<script type="text/javascript">
+    function unlock() {
+        $("input, textarea").removeAttr("readonly");
+        $("select").removeAttr("disabled");
+        $("#lock").removeClass("d-none");
+        $("#save").removeClass("d-none");
+        $("#unlock").addClass("d-none");
+        $('.mdb-select').materialSelect({
+            destroy: true
+        });
+        $(".mdb-select").materialSelect();
+    }
+    function lock() {
+        $("input, textarea").attr("readonly", "readonly");
+        $("select").attr("disabled", "disabled");
+        $("#lock").addClass("d-none");
+        $("#save").addClass("d-none");
+        $("#unlock").removeClass("d-none");
+        $('.mdb-select').materialSelect({
+            destroy: true
+        });
+        $(".mdb-select").materialSelect();
+    }
+
+
+    $(() => {
+        $('.chips-placeholder').materialChip({
+            placeholder: 'Enter a tag',
+            secondaryPlaceholder: '+Tag',
+        });
+
+        //$('.chips').on('chip.add', function (e, chip) {
+        //    // you have the added chip here
+        //});
+
+        //$('.chips').on('chip.delete', function (e, chip) {
+        //    // you have the deleted chip here
+        //});
+
+        //$('.chips').on('chip.select', function (e, chip) {
+        //    // you have the selected chip here
+        //});
+
+        $("#FirstName").trigger("change");
+        $("#SecondName").trigger("change");
+        $("#City").trigger("change");
+        $("#Age").trigger("change");
+        $("#SoftSkills").trigger("change");
+        $("#HardSkills").trigger("change");
+        $("#Experience").trigger("change");
+    })
+</script>

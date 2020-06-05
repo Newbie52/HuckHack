@@ -1,0 +1,126 @@
+﻿@using HuckHack.Domain.Entities
+@using HuckHack.Extensions
+@model IEnumerable<HuckHack.Domain.Entities.Team>
+
+<div class="container mt-1">
+    <div class="row mb-3">
+        <div class="col-3">
+            <div class="card p-3">
+                <div class="row">
+                    <div class="card-body">
+                        @*<div class="col-lg-3">
+                                <select id="cityFilter" onchange="filterByCity()" class="mdb-select md-form" searchable="Искать...">
+                                    <option value="Any" disabled selected>Место проведения</option>
+                                    <option value="Any">Любое</option>
+                                    @foreach (var city in Model.Cities)
+                                    {
+                                        <option value="@city">@city</option>
+                                    }
+                                </select>
+                            </div>*@
+
+                        <div class="col-lg-3">
+                            <label>Только мои команды</label>
+                            <div class="switch">
+                                <label>
+                                    Выкл.
+                                    <input id="onlyUserTeams" type="checkbox" unchecked>
+                                    <span class="lever"></span> Вкл.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-9">
+            @if (Model == null || Model.Count() == 0)
+            {
+                <div class="mt-3">Пусто :(</div>
+            }
+            else
+            {
+                @foreach (var team in Model)
+                {
+                    @*<div class="card team-card  @(applicationToFindHackers.UserId == User.GetId() ? "" : "notUserTeam")">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-3 d-flex mb-2 align-items-center">
+                                <div class="avatar w-50 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg" class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <p class="col-2 font-weight-bold lead"><strong>@applicationToFindHackers.TeamName</strong></p>
+                                    <a asp-controller="Teams" asp-action="Application" asp-route-id="@applicationToFindHackers.Id" class="col-2 btn btn-default btn-rounded btn-sm">Просмотр</a>
+                                </div>
+
+                                <p class="text-muted font-weight-light">
+                                    @applicationToFindHackers.ShortDescription
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>*@
+
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3 d-flex mb-2 align-items-center">
+                                    <div class="avatar white d-flex justify-content-center align-items-center">
+                                        <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg" class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 text-left">
+                                    <div class="row">
+                                        <p class="col-12 font-weight-bold lead">
+                                            <span class="badge badge-pill light-blue"><i class="fas fa-users" aria-hidden="true"></i></span>
+                                            <strong><a href="Application?id=@team.Id">@team.Name</a></strong>
+                                        </p>
+                                    </div>
+
+                                    <div class="row">
+                                        <p class="col-12 font-weight-light lead">
+                                            <span class="badge badge-pill light-blue"><i class="fas fa-laptop-code" aria-hidden="true"></i></span>
+                                            @*<strong><a href="Events/@team.EventId">MegaHack</a></strong>*@
+                                            <strong><a asp-controller="Events" asp-action="Index" asp-route-id="@team.EventId">@team.EventName</a></strong>
+                                        </p>
+                                    </div>
+
+                                    <p class="text-muted font-weight-light card-text">
+                                        @team.ShortDescription
+                                    </p>
+
+                                    <hr class="my-1 pb-2">
+                                    <div class="row">
+                                        <span class="col-2 ml-3 badge badge-pill badge-success">Состав: @(team.UserIds.Count)</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#onlyActual").click(function () {
+        applyFilter();
+    });
+
+    function applyFilter() {
+        $(".team-card").show();
+
+        var onlyUserTeams = $("#onlyUserTeams").prop('checked');
+
+        if (onlyUserTeams) {
+            $(".notUserTeam").hide();
+        }
+    }
+</script>

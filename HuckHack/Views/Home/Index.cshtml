@@ -1,0 +1,362 @@
+﻿@{
+    Layout = "";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id" content="66891961254-dpiq0uno6ihluh2bv55vkhquftp5tsa2.apps.googleusercontent.com">
+    <title>@ViewData["Title"] - HuckHack</title>
+    <script src="https://apis.google.com/js/platform.js" async></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/mdb.min.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+
+    <script type="text/javascript" src="~/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="~/js/modules/wow.js"></script>
+
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/19.1.5/css/dx.common.css">
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/19.1.5/css/dx.light.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <style type="text/css">
+        body {
+            font-family: 'Roboto';
+        }
+
+        html,
+        body,
+        header,
+        .view {
+            height: 100%;
+        }
+
+        @@media (max-width: 740px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 1000px;
+            }
+        }
+
+        @@media (min-width: 800px) and (max-width: 850px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 650px;
+            }
+        }
+
+        .top-nav-collapse {
+            background-color: #3f51b5 !important;
+        }
+
+        .navbar:not(.top-nav-collapse) {
+            background: transparent !important;
+        }
+
+        @@media (max-width: 991px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5 !important;
+            }
+        }
+
+        .rgba-gradient {
+            background: -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%);
+            background: -webkit-gradient(linear, 45deg, from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%)));
+            background: linear-gradient(to 45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%);
+        }
+
+        .card {
+            background-color: rgba(126, 123, 215, 0.2);
+        }
+
+        .md-form label {
+            color: #ffffff;
+        }
+
+        h6 {
+            line-height: 1.7;
+        }
+
+        .page-footer {
+            background-color: #1C2331
+        }
+    </style>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+            <div class="container">
+                <strong>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">HuckHack</a>
+                </strong>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Events">Хакатоны</a>
+                        </li>
+                        @*<li class="nav-item active">
+                                <a class="nav-link" href="#">
+                                    Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>*@
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @*<li class="nav-item">
+                                    <a class="nav-link" href="/Events">Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Hackers">Hackers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/TeamCards">Teams</a>
+                                </li>*@
+                        }
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user"></i> Профиль
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                    <a class="dropdown-item" href="/Profile">Личный кабинет</a>
+                                    <a class="dropdown-item" href="#" onclick="logout()">Выйти</a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><div class="g-signin2" data-onsuccess="onSignIn"></div></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="view" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1963&q=80'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+            <div class="mask rgba-gradient align-items-center">
+                <div class="container" style="padding-top: 10%;">
+                    <div class="row mt-5">
+                        <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left">
+                            <h1 class="h1-responsive font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">Зарегистрируйтесь прямо сейчас! </h1>
+                            <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
+                            <h6 class="mb-3 wow fadeInLeft" data-wow-delay="0.3s">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga
+                                nesciunt dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea
+                                dolor molestiae, quisquam iste, maiores. Nulla.
+                            </h6>
+                            <a id="learnMore" class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s">Узнать больше</a>
+                        </div>
+                      
+                        <div class="col-md-6 col-xl-5 mb-4">
+                            <div class="card wow fadeInRight" data-wow-delay="0.3s">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <h3 class="white-text">
+                                            <i class="fas fa-user white-text"></i> Регистрация:
+                                        </h3>
+                                        <hr class="hr-light">
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fas fa-user prefix white-text active"></i>
+                                        <input type="text" id="form3" class="white-text form-control">
+                                        <label for="form3" class="active">Имя</label>
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fas fa-envelope prefix white-text active"></i>
+                                        <input type="email" id="form2" class="white-text form-control">
+                                        <label for="form2" class="active">Email</label>
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fas fa-lock prefix white-text active"></i>
+                                        <input type="password" id="form4" class="white-text form-control">
+                                        <label for="form4">Пароль</label>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <button class="btn btn-indigo">Зарегистрироваться</button>
+                                        <hr class="hr-light mb-3 mt-4">
+
+                                        <div class="inline-ul text-center">
+                                            <a class="p-2 m-2 tw-ic">
+                                                <i class="fab fa-google white-text"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="features" class="container">
+            <section>
+
+                <h2 class="h1-responsive font-weight-bold text-center my-5">Какие у вас есть возможности?</h2>
+                <p class="grey-text text-center w-responsive mx-auto mb-5">Ищите подходящие для вас хакатоны зарубежом или в России, собирайте команду "мечты" и выкладывайтесь на все сто для победы!</p>
+
+                <div class="row mx-1">
+                    <div class="col-md-12 mb-4">
+                        <div class="card card-image" style="background-image: url(https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80);">
+                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h6 class="purple-text"><i class="fas fa-calendar-alt"></i><strong> Хакатоны</strong></h6>
+                                    <h3 class="card-title py-3 font-weight-bold"><strong>Следите за всеми предстоящими хакатонами</strong></h3>
+                                    <p class="pb-3">
+                                        Находите любые хакатоны на ваш вкус и узнавайте все о датах проведения, призах и организаторах. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
+                                        optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos.
+                                        Odit sed qui, dolorum!
+                                    </p>
+                                    <a class="btn btn-secondary btn-rounded" href="/Events"><i class="far fa-clone left"></i> Перейти</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="card card-image" style="background-image: url(https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjIxMTIzfQ&auto=format&fit=crop&w=1048&q=80);">
+                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h6 class="pink-text"><i class="fas fa-user"></i><strong> Участники команды</strong></h6>
+                                    <h3 class="card-title py-3 font-weight-bold"><strong>Поиск сокомандников</strong></h3>
+                             
+                                    <p class="pb-3">
+                                        В каждом хакатоне ищите заявки других участников и формируйте или доукомплектовывайте свою команду.
+                                    </p>
+                                    <a class="btn btn-pink btn-rounded" href="/Events"><i class="far fa-clone left"></i> Перейти</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                    <div class="col-md-6 mb-4">
+                        <div class="card card-image" style="background-image: url(https://images.unsplash.com/photo-1522071901873-411886a10004?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h6 class="green-text"><i class="fas fa-users"></i><strong> Команды</strong></h6>
+                                    <h3 class="card-title py-3 font-weight-bold"><strong>Поиск команды</strong></h3>
+                    
+                                    <p class="pb-3">
+                                        Ищите объявления формирующихся команд и вступайте в понравившуюся для участия в выбранном хакатоне.
+                                    </p>
+                                    <a class="btn btn-success btn-rounded" href="/Events"><i class="far fa-clone left"></i> Перейти</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+   
+    <footer class="page-footer text-center font-small mt-4">
+
+        <hr class="my-4">
+
+        <div class="pb-4">
+            <a href="#" target="_blank">
+                <i class="fab fa-facebook-f mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-twitter mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-youtube mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-google-plus-g mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-dribbble mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-pinterest mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-github mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-codepen mr-3"></i>
+            </a>
+        </div>
+       
+        <div class="footer-copyright py-3">
+            © 2019 Copyright:
+            <a href="#" target="_blank"> HuckHack </a>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        var token = "";
+        var auth2;
+        $(() => {
+            $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+
+            $("select").materialSelect();
+
+            $("#learnMore").click(function () {
+                $('html,body').animate({
+                    scrollTop: $("#features").offset().top
+                },
+                    'slow');
+            });
+
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '66891961254-dpiq0uno6ihluh2bv55vkhquftp5tsa2.apps.googleusercontent.com'
+                });
+            });
+        });
+        function onSignIn(googleUser) {
+            var id_token = googleUser.getAuthResponse().id_token;
+            $.get('/User/SignIn?token='+ id_token).done(r => location.reload());
+            var profile = googleUser.getBasicProfile();
+            token = id_token;
+        }
+        function logout() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+            $.get('/User/SignOut').done(r => location.reload());
+        }
+    </script>
+
+    <script type="text/javascript" src="~/js/popper.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/mdb.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/19.1.5/js/dx.all.js"></script>
+    <script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+</html>

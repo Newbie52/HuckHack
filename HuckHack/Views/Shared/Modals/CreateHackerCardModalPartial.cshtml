@@ -1,0 +1,51 @@
+﻿@using HuckHack.Domain.Entities
+<div class="modal fade" id="addHackerCardModal" tabindex="-1" role="dialog" aria-labelledby="addHackerCardModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addHackerCardModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="HackerCards" asp-action="Create" enctype="multipart/form-data" method="post" class="">
+                <div class="modal-body md-form">
+
+                    @*<div class="row">
+            <div class="md-form col-6">
+                <input id="firstNameInput" name="FirstName" value="@ViewBag.User.FirstName" class="form-control" type="text" />
+                <label for="firstNameInput">First name</label>
+            </div>
+            <div class="md-form col-6">
+                <input id="lastNameInput" name="LastName" value="@ViewBag.User.LastName" class="form-control" type="text" />
+                <label for="lastNameInput">Last name</label>
+            </div>
+        </div>*@
+
+                    <div class="md-form col-12">
+                        <div class="row">
+                            <div class="col-11">
+                                <input id="descriptionInput" name="Description" class="form-control" type="text" placeholder="В трех словах о себе" />
+                            </div>
+                            <div class="col-1">
+                                <i class="fas fa-question-circle pt-2 tooltip-container" data-toggle="tooltip" data-placement="top" title="Рекомендуем написать желаемый стек, трек и роль"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                    <input type="hidden" name="EventId" value="@ViewBag.EventId">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-rounded">
+                        <span>
+                            Создать
+                            <i class="fas fa-cloud-upload-alt ml-3" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

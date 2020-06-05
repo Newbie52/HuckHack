@@ -1,0 +1,56 @@
+﻿@using HuckHack.Domain.Entities
+<div class="modal fade" id="addTeamCardModal" tabindex="-1" role="dialog" aria-labelledby="addTeamCardModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTeamCardModalLabel">Размещение заявки участника</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="TeamCards" asp-action="Create" enctype="multipart/form-data" method="post" class="">
+                <div class="modal-body md-form">
+                    <select class="mdb-select md-form" name="TeamId">
+                        <option value="" disabled selected>Выбрать команду</option>
+                        @foreach (var team in (List<Team>)ViewBag.Teams)
+                        {
+                            <option value="@team.Id">@team.Name</option>
+                        }
+                    </select>
+
+                    <select class="mdb-select md-form" name="EventId">
+                        <option value="" disabled selected>Выбрать хакатон</option>
+                        @foreach (var hackEvent in (List<Event>)ViewBag.Events)
+                        {
+                            <option value="@hackEvent.Id">@hackEvent.Name</option>
+                        }
+                    </select>
+
+                    @*<div class="md-form col-6">
+                        <input id="membersCountInput" name="MembersCount" class="form-control" type="text" />
+                        <label for="membersCountInput">Количество участников</label>
+                    </div>
+
+                    <div class="md-form col-6">
+                        <textarea id="descriptionInput" name="Description" class="md-textarea form-control" rows="3" type="text"></textarea>
+                        <label for="descriptionInput">Описание</label>
+                    </div>*@
+
+                    <div class="md-form col-6">
+                        <textarea id="requirementsInput" name="Requirements" class="md-textarea form-control" rows="3" type="text"></textarea>
+                        <label for="requirementsInput">Требования</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-rounded">
+                        <span>
+                            Создать
+                            <i class="fas fa-cloud-upload-alt ml-3" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

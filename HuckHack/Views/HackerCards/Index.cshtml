@@ -1,0 +1,255 @@
+﻿@using HuckHack.Domain.Entities
+@model HackerCardPageModel
+
+<div class="container-fluid">
+    <div class="row">
+        <form asp-action="Search" class="d-flex justify-content-center" method="post">
+            <div class="col-xl-3 col-lg-12 mb-4">
+                <div class="card users-listing-small mb-4">
+                    <div class="card-header text-center py-3">
+                        <h4>Фильтры</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            @*<h6 style="color: mediumturquoise;"><i class="fas fa-user-friends"></i> КОМАНДЫ</h6>
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.HasTeam" type="checkbox" class="form-check-input" id="hasTeam">
+                                    <label class="form-check-label" for="hasTeam">В команде</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Solo" type="checkbox" class="form-check-input" id="soloHacker">
+                                    <label class="form-check-label" for="soloHacker">Одиночка</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.SearchTeam" type="checkbox" class="form-check-input" id="inSearch">
+                                    <label class="form-check-label" for="inSearch">В поисках</label>
+                                </div>
+                            </li>*@
+
+                            <br />
+                            <h6 style="color: mediumturquoise;"><i class="fas fa-tag"></i> СПЕЦИАЛЬНОСТИ</h6>
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Frontend" type="checkbox" class="form-check-input" id="frontendSpecialty">
+                                    <label class="form-check-label" for="frontendSpecialty">Фронтентд-разработчик</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Backend" type="checkbox" class="form-check-input" id="backendSpecialty">
+                                    <label class="form-check-label" for="backendSpecialty">Бэкенд-разработчик</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Analyst" type="checkbox" class="form-check-input" id="analystSpecialty">
+                                    <label class="form-check-label" for="analystSpecialty">Аналитик</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Designer" type="checkbox" class="form-check-input" id="designerSpecialty">
+                                    <label class="form-check-label" for="designerSpecialty">Дизайнер</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Mobile" type="checkbox" class="form-check-input" id="mobileSpecialty">
+                                    <label class="form-check-label" for="mobileSpecialty">Мобильный разработчик</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.TeamLead" type="checkbox" class="form-check-input" id="teamLeaderSpecialty">
+                                    <label class="form-check-label" for="teamLeaderSpecialty">Тимлидер</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Speaker" type="checkbox" class="form-check-input" id="speakerSpecialty">
+                                    <label class="form-check-label" for="speakerSpecialty">Спикер</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Other" type="checkbox" class="form-check-input" id="otherSpecialty">
+                                    <label class="form-check-label" for="otherSpecialty">Другое</label>
+                                </div>
+                            </li>
+
+                            <br />
+                            <h6 style="color: mediumturquoise;"><i class="fas fa-tools"></i> НАВЫКИ</h6>
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.CSharp" type="checkbox" class="form-check-input" id="csharpSkill">
+                                    <label class="form-check-label" for="csharpSkill">c#</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Java" type="checkbox" class="form-check-input" id="javaSkill">
+                                    <label class="form-check-label" for="javaSkill">java</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Python" type="checkbox" class="form-check-input" id="pythonSkill">
+                                    <label class="form-check-label" for="pythonSkill">python</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Javascript" type="checkbox" class="form-check-input" id="javascriptSkill">
+                                    <label class="form-check-label" for="javascriptSkill">javascript</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Css" type="checkbox" class="form-check-input" id="cssSkill">
+                                    <label class="form-check-label" for="cssSkill">css</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Angular" type="checkbox" class="form-check-input" id="angularSkill">
+                                    <label class="form-check-label" for="angularSkill">angular</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.React" type="checkbox" class="form-check-input" id="reactSkill">
+                                    <label class="form-check-label" for="reactSkill">react</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Cpp" type="checkbox" class="form-check-input" id="cppSkill">
+                                    <label class="form-check-label" for="cppSkill">c++</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.Design" type="checkbox" class="form-check-input" id="designSkill">
+                                    <label class="form-check-label" for="designSkill">design</label>
+                                </div>
+                            </li>
+
+                            <li class="media">
+                                <div class="form-check">
+                                    <input asp-for="Filter.MachineLearning" type="checkbox" class="form-check-input" id="machineLearningSkill">
+                                    <label class="form-check-label" for="machineLearningSkill">machine-learning</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-9 col-lg-12 mb-4">
+                <section class="mb-4">
+                    <div class="row">
+                        <div class="col-md-9 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-center">
+                                        <input type="search" asp-for="Filter.SearchValue" placeholder="Ищите участников по имени" aria-label="Search" class="form-control" value="">
+                                        <input type="top" name="top" value="all" style="display: none;">
+                                        <button class="btn btn-unique btn-rounded btn-sm my-0 p waves-effect waves-light" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-4 mb-md-0">
+                            <a id="сlear-filter-btn" href="@(ViewBag.EventId)" role="button" class="btn btn-info btn-rounded btn-block mt-3 waves-effect waves-light">Очистить</a>
+                        </div>
+                    </div>
+                </section>
+         
+                @if (Model == null || Model.Hackers.Count == 0)
+                {
+                    <div class="mt-3">Никого :(</div>
+                }
+                else
+                {
+                    @foreach (var hacker in Model.Hackers)
+                    {
+                        <div class="card mt-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-3 d-flex mb-2 align-items-center">
+                                        <div class="avatar white d-flex justify-content-center align-items-center">
+                                            <img src="@(!string.IsNullOrEmpty(hacker.Picture) ? "data:image/gif;base64, " + hacker.Picture :
+                                                          "https://www.expert-comptable-sogar.fr/files/img/article.jpg")"  class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <p class="col-3 font-weight-bold lead"><a asp-controller="Profile" asp-action="Index" asp-route-id="@hacker.UserId">
+                                                <strong>@hacker.DisplayName</strong>
+                                            </a> </p><span class="col-3" style="color: gray;"><i class="fas fa-tag"></i> @hacker.Specialty</span>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-auto font-weight-bold text-muted mt-1">Навыки </p>
+                                            <div>
+                                                @foreach (var skill in string.IsNullOrEmpty(hacker.Skills) ? new List<string>() : hacker.Skills.Split(' ').ToList())
+                                                {
+                                                    <div class="chip">
+                                                        @skill
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <p class="text-muted font-weight-light">
+                                            @hacker.Description
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+<partial name="Modals/CreateHackerCardModalPartial" />
+
+<script type="text/javascript">
+    $("#hackathonEvent").change(
+        function () {
+            location.href = "/Hackers?eventId=" + this.value;
+        }
+    );
+
+    $(function () {
+    });
+</script>

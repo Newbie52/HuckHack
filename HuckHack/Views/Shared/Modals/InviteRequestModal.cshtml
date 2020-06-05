@@ -1,0 +1,62 @@
+﻿@using HuckHack.Domain.Entities
+<div class="modal fade" id="InviteRequestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-150" id="myModalLabel">Отправить приглашение</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="Communication" asp-action="SendInviteRequest">
+
+                <input type="hidden" id="inviteTo" name="To">
+                <div class="modal-body">
+                    <div class="md-form form-sm m-2">
+                        <textarea style="resize: none" class="md-textarea form-control" rows="3" name="CoverMessage" id="CoverMessage"></textarea>
+                        <label for="CoverMessage">Сообщение</label>
+                    </div>
+                </div>
+
+                <select class="md-form mdb-select form-sm m-4" name="TeamId">
+                    <option value="" disabled="">В какую команду</option>
+                    @foreach (var team in ViewBag.GuestTeams ?? new List<Team>())
+                    {
+                        <option value="@team.Id">@team.Name (@team.EventName)</option>
+                    }
+                </select>
+
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary btn-sm btn-rounded" value="Отправить" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#InviteRequestModal form').submit(function (e) {
+            var $form = $(this);
+            $.ajax({
+                type: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $form.serialize()
+            }).done(function () {
+                $('#InviteRequestModal').modal("hide");
+            }).fail(function () {
+                alert('fail');
+            });
+            //отмена действия по умолчанию для кнопки submit
+            e.preventDefault();
+        });
+    });
+    $('#InviteRequestModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var toId = button.data('to');
+        var modal = $(this);
+        modal.find('#inviteTo').val(toId);
+    })
+</script>

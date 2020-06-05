@@ -1,0 +1,79 @@
+﻿@model HuckHack.Domain.Entities.Team
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 ">
+            <div class="card p-3">
+                <div class="row">
+                    <div class="col-12 event-header">
+                        <h1>@Model.Name</h1>
+                        @*<h2>@Model.Description</h2>*@
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9 p-3">
+            <div class="card p-5">
+                <p>@Model.ShortDescription</p>
+            </div>
+            
+            <div class="card card-cascade cascading-admin-card user-card mt-3 text-center mb-2">
+                <div class="card-header py-3">
+                    <h3 style="color: gray;">Участники</h3>
+                </div>
+            </div>
+
+            @foreach (var hacker in Model.Users)
+            {
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-3 d-flex mb-2 align-items-center">
+                                <div class="avatar white d-flex justify-content-center align-items-center">
+                                    <img src="@(!string.IsNullOrEmpty(hacker.Picture) ? "data:image/gif;base64, " + hacker.Picture :
+                                                  "https://www.expert-comptable-sogar.fr/files/img/article.jpg")" class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <p class="col-3 font-weight-bold lead">
+                                        <a asp-controller="Profile" asp-action="Index" asp-route-id="@hacker.Id"><strong>@hacker.ShortDisplayName</strong></a>
+                                    </p>
+                                    <span class="col-3" style="color: gray;"><i class="fas fa-tag"></i> @hacker.Specialty</span>
+                                </div>
+                                <div class="row">
+                                    <p class="col-auto font-weight-bold text-muted mt-1">Навыки </p>
+                                    <div>
+                                        @foreach (var skill in string.IsNullOrEmpty(hacker.HardSkills) ? new List<string>() : hacker.HardSkills.Split(' ').ToList())
+                                        {
+                                            <div class="chip">
+                                                @skill
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <p class="text-muted font-weight-light">
+                                    @hacker.HackathonsExperience
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="col-3 p-3">
+            <div class="card mb-2 text-center">
+                <div class="card-body">
+                    <a asp-controller="Events" asp-action="Index" asp-route-id="@Model.EventId" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">К хакатону</a>
+                    <a asp-controller="Profile" asp-action="Index" asp-route-id="@Model.UserId" class="btn btn-default btn-lg active" role="button" aria-pressed="true">К капитану</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

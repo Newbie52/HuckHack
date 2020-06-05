@@ -1,0 +1,231 @@
+﻿@model HuckHack.Domain.Entities.Event
+
+<partial name="Modals/CreateHackerCardModalPartial" />
+<partial name="Modals/CreateApplicationModalPartial" />
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-12 ">
+            <div class="card p-3">
+                <div class="row">
+                    <div class="col-12 event-header">
+                        <h1>@Model.Name</h1>
+                        <h2>...</h2>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col">
+                        <a href="@Url.Action("Index","HackerCards", new {eventId=Model.Id})" class="btn-sm btn btn-rounded btn-outline-amber">
+                            Участники
+                        </a>
+                        <a href="@Url.Action("ApplicationList","Teams", new {eventId=Model.Id})" class="btn-sm btn btn-rounded btn-outline-amber">
+                            Команды
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-9 p-3">
+            <div class="card p-5">
+                <p class="mb-5">@Model.Description</p>
+
+                <span style="color: skyblue;"> <h3>Требования</h3><hr /></span>
+
+                <p class="mb-5">В качестве участников приветствуются студенты любого университета, старшеклассники или выпускники, которые закончили обучение в течение последних 12 месяцев, в составе команд до 4 человек!</p>
+
+                <span style="color: skyblue;"> <h3>Судьи</h3><hr /></span>
+                <section class="p-md-3 mx-md-5 text-lg-left">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-5 avatar w-100 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg"
+                                         class="img-fluid rounded-circle z-depth-1" />
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font-weight-bold pt-2">Alan Turing</h6>
+                                    <p class="text-muted">
+                                        Software Engineer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-5 avatar w-100 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg"
+                                         class="img-fluid rounded-circle z-depth-1" />
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font-weight-bold pt-2">Tom Johnson</h6>
+                                    <p class="text-muted">
+                                        Designer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-5 avatar w-100 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg"
+                                         class="img-fluid rounded-circle z-depth-1" />
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font-weight-bold pt-2">Alax Laurie</h6>
+                                    <p class="text-muted">
+                                        JavaScript Developer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-5 avatar w-100 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg"
+                                         class="img-fluid rounded-circle z-depth-1" />
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font-weight-bold pt-2">Nathalie Fry</h6>
+                                    <p class="text-muted">
+                                        Office Manager
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-5 avatar w-100 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg"
+                                         class="img-fluid rounded-circle z-depth-1" />
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font-weight-bold pt-2">Ella Stone</h6>
+                                    <p class="text-muted">
+                                        Software Engineer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-5 avatar w-100 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg"
+                                         class="img-fluid rounded-circle z-depth-1" />
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font-weight-bold pt-2">Lara Croft</h6>
+                                    <p class="text-muted">
+                                        Frontend Developer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-5 avatar w-100 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg"
+                                         class="img-fluid rounded-circle z-depth-1" />
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font-weight-bold pt-2">Billy Turner</h6>
+                                    <p class="text-muted">
+                                        Java Developer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-5 avatar w-100 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg"
+                                         class="img-fluid rounded-circle z-depth-1" />
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font-weight-bold pt-2">Caroline Thompson</h6>
+                                    <p class="text-muted">
+                                        Junior Data Engineer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-5 avatar w-100 white d-flex justify-content-center align-items-center">
+                                    <img src="https://www.expert-comptable-sogar.fr/files/img/article.jpg"
+                                         class="img-fluid rounded-circle z-depth-1" />
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font-weight-bold pt-2">Anna Polkovsky</h6>
+                                    <p class="text-muted">
+                                        Marketing Specialist
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+
+                <span style="color: skyblue;"> <h3>Критерии оценивания</h3><hr /></span>
+                <div class="mb-5">
+                    <p class="mb-3"><strong>Дизайн</strong><br />Проект хорошо сделан и отшлифован? Он выполняет свою основную цель?</p>
+                    <p class="mb-3"><strong>Технологии</strong><br />Насколько технически сложным является проект? Правильные ли технологии были выбраны для поставленной задачи?</p>
+                    <p class="mb-3"><strong>Оригинальность</strong><br />Проект свежий или уникальный? Это то, что уже существует, но с новым видением?</p>
+                </div>
+
+                <span style="color: skyblue;"> <h3>Тема</h3><hr /></span>
+                <p>Промышленность</p>
+            </div>
+        </div>
+        <div class="col-3 p-3">
+            <div class="card p-2 mb-2">
+                <div class="col">
+                    <div data-toggle="modal" data-to="addHackerCardModal" href="#addHackerCardModal" class="btn-block btn btn-rounded btn-success my-2 @(!User.Identity.IsAuthenticated?"disabled":"")">Хочу в команду <i class="fas fa-check"></i></div>
+                    <hr />
+                    <div data-toggle="modal" data-to="addApplicationModal" href="#addApplicationModal" class="btn-block btn btn-rounded btn-success my-2 @(!User.Identity.IsAuthenticated?"disabled":"")">Ищу в команду <i class="fas fa-check"></i></div>
+                    <hr />
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-body p-2">
+                    <div class="col">
+                        Регистрация:<br /><b>@Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()</b><br />
+                        Хакатон:<br /><b>@Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()</b><hr />
+                    </div>
+                    <div class="col mb-2 text-center">
+                        <a href="#"><i class="fas fa-map-marker-alt pr-1"> </i>@Model.City</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card rgba-yellow-light">
+                <div class="card-header col">
+                    <h4><i class="fas fa-trophy"></i> Награды:</h4>
+                </div>
+                <div class="card-body p-2">
+                    <div class="col font-weight-bold">
+                        <ol>
+                            <li>
+                                100 000 рублей
+                            </li>
+                            <li>
+                                50 000 рублей
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function hackerModal() {
+        $
+    }
+
+    function teamModal() {
+
+    }
+</script>
